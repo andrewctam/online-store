@@ -1,7 +1,19 @@
-# logo store
- 
-On the backend:
-    - Using Virtualenv:
-        - Follow these steps: https://flask.palletsprojects.com/en/3.0.x/installation/
-        - Run `pip install -r requirements.txt` to install dependencies
-        - `cd app` and run `flask run`
+# Logo Store
+
+A store to upload your logos and sell them to other users.
+
+## Technologies
+- React Native
+- MongoDB
+- Flask 
+
+## Installation
+- On the frontend: 
+    - `cd frontend` and run `npm install` to install dependencies
+    - Run `npm start`
+
+- On the backend:
+    - Follow these steps to set up a Python virtual environment: https://flask.palletsprojects.com/en/3.0.x/installation/
+    - In `/backend`, add your MongoDB URI to `.env.template` file and rename it to `.env`
+    - `cd backend` and run `pip install -r requirements.txt` to install dependencies
+    - `cd app` and run `flask run`
