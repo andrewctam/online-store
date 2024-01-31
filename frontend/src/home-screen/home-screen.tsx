@@ -14,14 +14,14 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
     }
 
     useEffect(() => {
-        const getLogos = async () => {
-            const response = await fetch(`${API_URL}/api/logos`)
+        const getItems = async () => {
+            const response = await fetch(`${API_URL}/api/items`)
                 .then(res => res.json());
 
             console.log(response)
         }
 
-        getLogos();
+        getItems();
     }, [])
     
     return (

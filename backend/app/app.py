@@ -16,9 +16,9 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 mongo = PyMongo(app, tlsCAFile=certifi.where())
 
-@app.route("/api/logos")
+@app.route("/api/items")
 def hello():
-    logos = mongo.db.logos
-    existing = list(logos.find({}))
+    items = mongo.db.items
+    existing = list(items.find({}))
 
     return json_util.dumps(existing)

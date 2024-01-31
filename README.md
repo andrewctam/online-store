@@ -1,6 +1,6 @@
-# Logo Store
+# Online Store
 
-A store to upload your logos and sell them to other users.
+A store to sell items to other users.
 
 ## Technologies
 - React Native
