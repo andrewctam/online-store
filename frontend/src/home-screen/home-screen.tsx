@@ -1,7 +1,8 @@
 import { Button, StyleSheet, Text, View } from "react-native";
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
 import { useEffect } from "react";
-import { API_URL } from "../constants";
+import { API_URL } from "../../constants";
+import Layout from "../shared/layout";
 
 interface HomeScreenProps {
     navigation: NavigationProp<ParamListBase>
@@ -24,7 +25,8 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
     }, [])
     
     return (
-        <View>
+        <Layout>
+            
             <Text>Home</Text>
 
             <View style={styles.button}>
@@ -34,7 +36,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
                 />
             </View>
 
-        </View>
+        </Layout>
     )
 }
 

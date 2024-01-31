@@ -1,10 +1,11 @@
 import { StyleSheet, View } from "react-native";
+import Layout from "../shared/layout";
 
 const CartScreen = () => {
     return (
-        <View>
+        <Layout>
             Cart
-        </View>
+        </Layout>
     )
 }
 
