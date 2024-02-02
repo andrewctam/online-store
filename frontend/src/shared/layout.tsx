@@ -1,4 +1,4 @@
-import { View } from "react-native"
+import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native"
 import NavBar from "./nav-bar";
 
 interface LayoutProps {
@@ -6,12 +6,19 @@ interface LayoutProps {
 }
 const Layout = (props: LayoutProps) => {
     return (
-        <View>
-            <NavBar />
-            
-            {props.children}
-        </View>
+        <SafeAreaView style={styles.body}>
+            <ScrollView>
+                <NavBar />
+                {props.children}
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
+const styles = StyleSheet.create({
+    body: {
+        width: "100%",
+        height: "100%"
+    }
+})
 export default Layout;
