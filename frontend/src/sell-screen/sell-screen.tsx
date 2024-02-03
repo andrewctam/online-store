@@ -9,7 +9,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const SellScreen = () => {
     const [sellerName, setSellerName] = useState("");
-    const [price, setPrice] = useState("$");
+    const [price, setPrice] = useState("");
     const [itemName, setItemName] = useState("");
     const [itemDescription, setItemDescription] = useState("");
     const [error, setError] = useState("");
@@ -75,7 +75,7 @@ const SellScreen = () => {
 
             <Button
                 onPress={() => navigation.navigate("HomeScreen")}
-                color="#f06e6e"
+                color="#d69987"
                 text="Cancel"
             />
         </Layout>

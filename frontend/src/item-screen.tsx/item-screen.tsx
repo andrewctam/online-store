@@ -1,52 +1,88 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import { ItemBody } from "../../types";
+import { StyleSheet, Text } from "react-native";
 import Layout from "../shared/layout";
-import { ParamListBase, useNavigation } from "@react-navigation/native";
+import { ParamListBase, RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import Button from "../shared/button";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { CartContext, RootStackParamList } from "../../App";
+import { useContext } from "react";
 
-const ItemScreen = (props: ItemBody) => {
+const ItemScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+    const route = useRoute<RouteProp<RootStackParamList, 'ItemScreen'>>();
+
+    const { cart, setCart } = useContext(CartContext);
+
+    if (!route.params) {
+        return null;
+    }
+
+    const { name, price, seller, description, id } = route.params;
+
+
+    const itemBody = { name, price, seller, description, id };
+
+    const addToCart = () => {
+        setCart([...cart, itemBody])
+    }
+
+    const removeFromCart = () => {
+        setCart(cart.filter((item) => item.id !== itemBody.id));
+    }
 
     return (
         <Layout>
+            <Text style={[styles.name, styles.center]}>
+                {name}
+            </Text>
+            <Text style={[styles.price, styles.center]}>
+                {price}
+            </Text>
+            <Text style={[styles.seller, styles.center]}>
+                {`Sold by ${seller}`}
+            </Text>
+            <Text style={[styles.description, styles.center]}>
+                {description}
+            </Text>
+
+            {cart.find((item) => item.id === id) ? (
+                <Button
+                    onPress={removeFromCart}
+                    text="Remove From Cart"
+                    color="#e36e66"
+                />
+            ) : (
+                <Button
+                    onPress={addToCart}
+                    text="Add To Cart"
+                    color="#42f59e"
+                />
+            )}
+
             <Button
-                onPress={() => navigation.navigate("HomeScreen")}
+                onPress={() => navigation.goBack()}
                 text="Back"
             />
-
-            <Text style={styles.itemName}>{props.name}</Text>
-            <Text>{`Description:\n${props.description}`}</Text>
-
-            <Text style={styles.price}>{props.price}</Text>
-            <Text style={styles.seller}>{`Seller: ${props.seller}`}</Text>
         </Layout>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: "#9daec9",
-        margin: 8,
-        padding: 16,
-        borderRadius: 4
-    },
-    itemName: {
-        fontSize: 28,
-        marginBottom: 12,
+    name: {
+        fontSize: 40,
     },
     price: {
-        position: "absolute",
-        top: 4,
-        right: 4,
-        fontSize: 16
+        fontSize: 20
     },
     seller: {
-        position: "absolute",
-        bottom: 4,
-        right: 4,
         fontSize: 16
     },
+    description: {
+        margin: 20,
+        fontSize: 16
+    },
+    center: {
+        textAlign: "center",
+    }
 })
 
 export default ItemScreen;

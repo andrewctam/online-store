@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import request
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 from flask_pymongo import PyMongo
 import os
 from dotenv import load_dotenv
@@ -21,6 +21,16 @@ mongo = PyMongo(app, tlsCAFile=certifi.where())
 def items():
     items = mongo.db.items
     existing = list(items.find({}))
+    existing.reverse()
+    print(existing)
+    existing = map(lambda x: {
+        "id": str(x['_id']),
+        "name": x['name'],
+        "price": x['price'],
+        "seller": x['seller'],
+        "description": x['description'],
+
+    }, existing)
 
     return json_util.dumps(existing)
 

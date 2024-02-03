@@ -1,16 +1,27 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { ItemBody } from "../../types";
+import { ParamListBase, useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const ItemList = (props: ItemBody) => {
+    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+
+    const openItemScreen = () => {
+        navigation.navigate("ItemScreen", { 
+            ...props 
+        });
+    }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.itemName}>{props.name}</Text>
-            <Text>{`Description:\n${props.description}`}</Text>
+        <Pressable onPress={openItemScreen}>
+            <View style={styles.container}>
+                <Text style={styles.itemName}>{props.name}</Text>
+                <Text>{`Description:\n${props.description}`}</Text>
 
-            <Text style={styles.price}>{props.price}</Text>
-            <Text style={styles.seller}>{`Seller: ${props.seller}`}</Text>
-        </View>
+                <Text style={styles.price}>{props.price}</Text>
+                <Text style={styles.seller}>{`Seller: ${props.seller}`}</Text>
+            </View>
+        </Pressable >
     )
 }
 
