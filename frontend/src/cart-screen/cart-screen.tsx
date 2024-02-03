@@ -1,14 +1,19 @@
 import { ParamListBase, useNavigation } from "@react-navigation/native";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import Layout from "../shared/layout";
 import Button from "../shared/button";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { CartContext } from "../../App";
 import { useContext } from "react";
+import CartItem from "./cart-item";
 
 const CartScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     const { cart } = useContext(CartContext);
+
+    const total = cart.reduce((acc, cur) => {
+        return acc + cur.price;
+    }, 0);
 
     return (
         <Layout>
@@ -20,17 +25,24 @@ const CartScreen = () => {
             />
 
             {cart.map((item, i) => (
-                <Text key={i}>
-                    {item.id}
-                </Text>
+                <CartItem
+                    key={i}
+                    {...item}
+                />
             ))}
 
-            {cart.length === 0 && (
-                <Text style={styles.empty}>
-                    Cart Is Empty
-                </Text>
+            <Text style={styles.text}>
+                {cart.length > 0 ? `Total: $${total}` : "Cart Is Empty"}
+            </Text>
+
+            {cart.length > 0 && (
+                <Button
+                    text="Checkout"
+                    onPress={() => {}}
+                    color="#c49fed"
+                />
             )}
-        </Layout>
+        </Layout >
     )
 }
 
@@ -39,11 +51,11 @@ const styles = StyleSheet.create({
         fontSize: 40,
         textAlign: "center"
     },
-    empty: {
+    text: {
         marginTop: 20,
         fontSize: 20,
         textAlign: "center"
-    }
+    },
 })
 
 export default CartScreen;

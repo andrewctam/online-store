@@ -3,7 +3,7 @@ import { ItemBody } from "../../types";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-const ItemList = (props: ItemBody) => {
+const HomeItem = (props: ItemBody) => {
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
     const openItemScreen = () => {
@@ -18,7 +18,7 @@ const ItemList = (props: ItemBody) => {
                 <Text style={styles.itemName}>{props.name}</Text>
                 <Text>{`Description:\n${props.description}`}</Text>
 
-                <Text style={styles.price}>{props.price}</Text>
+                <Text style={styles.price}>{"$" + props.price}</Text>
                 <Text style={styles.seller}>{`Seller: ${props.seller}`}</Text>
             </View>
         </Pressable >
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ItemList;
+export default HomeItem;

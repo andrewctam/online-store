@@ -1,6 +1,6 @@
 export interface ItemBody {
     name: string
-    price: string
+    price: number
     seller: string
     description: string
     id: string

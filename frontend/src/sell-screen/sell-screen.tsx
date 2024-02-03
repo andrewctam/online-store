@@ -22,6 +22,13 @@ const SellScreen = () => {
             return;
         }
 
+        const priceNum = parseFloat(price)
+
+        if (isNaN(priceNum)) {
+            setError("Price is not a number");
+            return;
+        }
+
         await fetch(`${API_URL}/api/create`, {
             method: "POST",
             headers: {
@@ -31,7 +38,7 @@ const SellScreen = () => {
                 seller: sellerName,
                 name: itemName,
                 description: itemDescription,
-                price
+                price: priceNum
             })
         }).then(() => navigation.navigate("HomeScreen"))
             .catch(err => console.log(err));

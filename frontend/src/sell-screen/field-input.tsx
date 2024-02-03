@@ -8,7 +8,6 @@ interface InputProps {
 }
 
 const FieldInput = (props: InputProps) => {
-
     return (
         <>
             <Text style={styles.label}>

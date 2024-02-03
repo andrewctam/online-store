@@ -3,7 +3,7 @@ import { ParamListBase, useIsFocused, useNavigation } from '@react-navigation/na
 import { useEffect, useState } from "react";
 import { API_URL } from "../../constants";
 import Layout from "../shared/layout";
-import ItemList from "./item-list";
+import HomeItem from "./home-item";
 import { ItemBody } from "../../types";
 import Button from "../shared/button";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -45,7 +45,7 @@ const HomeScreen = () => {
 
             <ScrollView>
                 {items?.map((item, i) => (
-                    <ItemList
+                    <HomeItem
                         key={i}
                         {...item}
                     />

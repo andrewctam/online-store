@@ -35,7 +35,7 @@ const ItemScreen = () => {
                 {name}
             </Text>
             <Text style={[styles.price, styles.center]}>
-                {price}
+                {"$" + price}
             </Text>
             <Text style={[styles.seller, styles.center]}>
                 {`Sold by ${seller}`}
