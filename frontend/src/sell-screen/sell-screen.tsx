@@ -8,7 +8,10 @@ const SellScreen = () => {
     const [itemName, setItemName] = useState("");
     const navigate = useNavigation();
     const createItem = async () => {
-        console.log(API_URL)
+        if (itemName.length === 0) {
+            return;
+        }
+
         await fetch(`${API_URL}/api/create`, {
             method: "POST",
             headers: {
@@ -23,6 +26,8 @@ const SellScreen = () => {
 
     return (
         <Layout>
+            <Text style={styles.title}>Add New Item</Text>
+
             <TextInput
                 style={styles.input}
                 value={itemName}
@@ -40,17 +45,28 @@ const SellScreen = () => {
 }
 
 const styles = StyleSheet.create({
+    title: {
+        fontSize: 40,
+        textAlign: "center"
+    },
     input: {
         height: 50,
-        width: "100%",
-        borderBlockColor: "black",
+        margin: 10,
+        padding: 10,
+        borderColor: "black",
         borderWidth: 1
     },
     button: {
-        width: 100,
+        width: 150,
         height: 50,
         padding: 10,
-        backgroundColor: "#778829"
+        marginLeft: "auto",
+        marginRight: "auto",
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 8,
+        backgroundColor: "#94bad1"
 
     }
 })

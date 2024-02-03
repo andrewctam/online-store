@@ -3,11 +3,14 @@ import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from "react";
 import { API_URL } from "../../constants";
 import Layout from "../shared/layout";
+import Item from "./item";
+import { ItemBody } from "../../types";
+
 
 
 const HomeScreen = () => {
-    const [items, setItems] = useState([]);
-    const navigate = useNavigation();
+    const [items, setItems] = useState<ItemBody[]>([]);
+    const navigation = useNavigation();
 
     useEffect(() => {
         const getItems = async () => {
@@ -28,17 +31,21 @@ const HomeScreen = () => {
                 Home
             </Text>
 
-            <ScrollView>
-                {items?.map((i: { name: string }) => <Text>{i.name}</Text>)}
-            </ScrollView>
-
             <Pressable
                 style={styles.button}
-                onPress={() => navigate.navigate("SellScreen")}
+                onPress={() => navigation.navigate("SellScreen")}
             >
-                <Text>Sell Item</Text>
+                <Text>List New Item</Text>
             </Pressable>
 
+            <ScrollView>
+                {items?.map((item, i) => (
+                    <Item 
+                        key={i}
+                        name={item.name} 
+                    />
+                ))}
+            </ScrollView>
         </Layout >
     )
 }
@@ -53,11 +60,16 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     button: {
-        width: 100,
+        width: 150,
         height: 50,
         padding: 10,
-        backgroundColor: "#778829"
-
+        marginLeft: "auto",
+        marginRight: "auto",
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 8,
+        backgroundColor: "#94bad1"
     }
 })
 
