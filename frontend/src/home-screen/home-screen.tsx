@@ -1,16 +1,17 @@
 import { Pressable, ScrollView, StyleSheet, Text } from "react-native";
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { ParamListBase, useIsFocused, useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from "react";
 import { API_URL } from "../../constants";
 import Layout from "../shared/layout";
-import Item from "./item";
+import ItemList from "./item-list";
 import { ItemBody } from "../../types";
-
-
+import Button from "../shared/button";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const HomeScreen = () => {
     const [items, setItems] = useState<ItemBody[]>([]);
-    const navigation = useNavigation();
+    
+    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     const isFocused = useIsFocused();
 
     useEffect(() => {
@@ -32,16 +33,19 @@ const HomeScreen = () => {
                 Home
             </Text>
 
-            <Pressable
-                style={styles.button}
+            <Button
                 onPress={() => navigation.navigate("SellScreen")}
-            >
-                <Text>List New Item</Text>
-            </Pressable>
+                text="List New Item"
+            />
+
+            <Button
+                onPress={() => navigation.navigate("CartScreen")}
+                text="View Cart"
+            />
 
             <ScrollView>
                 {items?.map((item, i) => (
-                    <Item 
+                    <ItemList
                         key={i}
                         {...item}
                     />
@@ -60,17 +64,6 @@ const styles = StyleSheet.create({
         fontSize: 40,
         textAlign: "center"
     },
-    button: {
-        paddingHorizontal: 40,
-        paddingVertical: 10,
-        marginLeft: "auto",
-        marginRight: "auto",
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 8,
-        backgroundColor: "#94bad1"
-    }
 })
 
 export default HomeScreen;

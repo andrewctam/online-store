@@ -20,6 +20,10 @@ export default function App() {
           component={HomeScreen}
         />
         <Stack.Screen
+          name="CartScreen"
+          component={CartScreen}
+        />
+        <Stack.Screen
           name="SellScreen"
           component={SellScreen}
         />

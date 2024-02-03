@@ -3,4 +3,5 @@ export interface ItemBody {
     price: string
     seller: string
     description: string
+    _id: string
 }

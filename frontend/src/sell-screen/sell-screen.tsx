@@ -1,20 +1,24 @@
 import { Pressable, StyleSheet, Text, TextInput } from "react-native";
 import { API_URL } from "../../constants";
-import { useNavigation } from "@react-navigation/native";
+import { ParamListBase, useNavigation } from "@react-navigation/native";
 import Layout from "../shared/layout";
 import { useState } from "react";
 import FieldInput from "./field-input";
+import Button from "../shared/button";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const SellScreen = () => {
     const [sellerName, setSellerName] = useState("");
     const [price, setPrice] = useState("$");
     const [itemName, setItemName] = useState("");
     const [itemDescription, setItemDescription] = useState("");
+    const [error, setError] = useState("");
 
-    const navigate = useNavigation();
+    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
     const createItem = async () => {
         if (itemName.length === 0 || sellerName.length === 0 || price.length === 0 || itemDescription.length === 0) {
+            setError("Please fill in all fields");
             return;
         }
 
@@ -26,9 +30,10 @@ const SellScreen = () => {
             body: JSON.stringify({
                 seller: sellerName,
                 name: itemName,
-                description: itemDescription
+                description: itemDescription,
+                price
             })
-        }).then(() => navigate.navigate("HomeScreen"))
+        }).then(() => navigation.navigate("HomeScreen"))
             .catch(err => console.log(err));
     }
 
@@ -58,22 +63,21 @@ const SellScreen = () => {
                 setValue={setItemDescription}
             />
 
+            <Text style={styles.error}>
+                {error}
+            </Text>
 
-            <Pressable
-                style={[styles.button, { "backgroundColor": "#a9eba2" }]}
+            <Button
                 onPress={createItem}
-            >
-                <Text>Create</Text>
-            </Pressable>
+                color="#a9eba2"
+                text="Create"
+            />
 
-            <Pressable
-                style={[styles.button, { "backgroundColor": "#f06e6e" }]}
-                onPress={() => navigate.navigate("HomeScreen")}
-            >
-                <Text>Cancel</Text>
-            </Pressable>
-
-
+            <Button
+                onPress={() => navigation.navigate("HomeScreen")}
+                color="#f06e6e"
+                text="Cancel"
+            />
         </Layout>
     )
 }
@@ -83,17 +87,10 @@ const styles = StyleSheet.create({
         fontSize: 40,
         textAlign: "center"
     },
-    button: {
-        paddingHorizontal: 40,
-        paddingVertical: 10,
-        margin: 10,
-        marginLeft: "auto",
-        marginRight: "auto",
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 8,
-    }
+    error: {
+        color: "red",
+        textAlign: "center"
+    },
 })
 
 export default SellScreen;
