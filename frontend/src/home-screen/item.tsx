@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
+import { ItemBody } from "../../types";
 
-interface ItemProps {
-    name: string
-}
-
-const Item = (props: ItemProps) => {
+const Item = (props: ItemBody) => {
     return (
         <View style={styles.container}>
+            <Text>{props.seller}</Text>
             <Text>{props.name}</Text>
+            <Text>{props.description}</Text>
+            <Text>{props.price}</Text>
         </View>
     )
 }
@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
         margin: 8,
         padding: 8,
         borderRadius: 4
-
     }
 })
 

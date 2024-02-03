@@ -28,7 +28,10 @@ def items():
 def createItem():
     items = mongo.db.items
     items.insert_one({
-        "name": request.json["name"]
+        "name": request.json["name"],
+        "price": request.json["price"],
+        "seller": request.json["seller"],
+        "description": request.json["description"],
     })
 
     return json_util.dumps("OK")

@@ -1,5 +1,5 @@
 import { Pressable, ScrollView, StyleSheet, Text } from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from "react";
 import { API_URL } from "../../constants";
 import Layout from "../shared/layout";
@@ -11,6 +11,7 @@ import { ItemBody } from "../../types";
 const HomeScreen = () => {
     const [items, setItems] = useState<ItemBody[]>([]);
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
 
     useEffect(() => {
         const getItems = async () => {
@@ -23,7 +24,7 @@ const HomeScreen = () => {
         }
 
         getItems();
-    }, [])
+    }, [isFocused])
 
     return (
         <Layout>
@@ -42,7 +43,7 @@ const HomeScreen = () => {
                 {items?.map((item, i) => (
                     <Item 
                         key={i}
-                        name={item.name} 
+                        {...item}
                     />
                 ))}
             </ScrollView>
@@ -60,9 +61,8 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     button: {
-        width: 150,
-        height: 50,
-        padding: 10,
+        paddingHorizontal: 40,
+        paddingVertical: 10,
         marginLeft: "auto",
         marginRight: "auto",
         flex: 1,

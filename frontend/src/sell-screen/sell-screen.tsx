@@ -3,12 +3,18 @@ import { API_URL } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import Layout from "../shared/layout";
 import { useState } from "react";
+import FieldInput from "./field-input";
 
 const SellScreen = () => {
+    const [sellerName, setSellerName] = useState("");
+    const [price, setPrice] = useState("$");
     const [itemName, setItemName] = useState("");
+    const [itemDescription, setItemDescription] = useState("");
+
     const navigate = useNavigation();
+
     const createItem = async () => {
-        if (itemName.length === 0) {
+        if (itemName.length === 0 || sellerName.length === 0 || price.length === 0 || itemDescription.length === 0) {
             return;
         }
 
@@ -18,28 +24,56 @@ const SellScreen = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                name: itemName
+                seller: sellerName,
+                name: itemName,
+                description: itemDescription
             })
         }).then(() => navigate.navigate("HomeScreen"))
-          .catch(err => console.log(err));
+            .catch(err => console.log(err));
     }
 
     return (
         <Layout>
             <Text style={styles.title}>Add New Item</Text>
 
-            <TextInput
-                style={styles.input}
+            <FieldInput
+                label="Your Name"
+                value={sellerName}
+                setValue={setSellerName}
+            />
+            <FieldInput
+                label="Price"
+                value={price}
+                setValue={setPrice}
+                numberInput
+            />
+            <FieldInput
+                label="Item Name"
                 value={itemName}
-                onChangeText={setItemName}
+                setValue={setItemName}
+            />
+            <FieldInput
+                label="Description"
+                value={itemDescription}
+                setValue={setItemDescription}
             />
 
+
             <Pressable
-                style={styles.button}
+                style={[styles.button, { "backgroundColor": "#a9eba2" }]}
                 onPress={createItem}
             >
                 <Text>Create</Text>
             </Pressable>
+
+            <Pressable
+                style={[styles.button, { "backgroundColor": "#f06e6e" }]}
+                onPress={() => navigate.navigate("HomeScreen")}
+            >
+                <Text>Cancel</Text>
+            </Pressable>
+
+
         </Layout>
     )
 }
@@ -49,25 +83,16 @@ const styles = StyleSheet.create({
         fontSize: 40,
         textAlign: "center"
     },
-    input: {
-        height: 50,
-        margin: 10,
-        padding: 10,
-        borderColor: "black",
-        borderWidth: 1
-    },
     button: {
-        width: 150,
-        height: 50,
-        padding: 10,
+        paddingHorizontal: 40,
+        paddingVertical: 10,
+        margin: 10,
         marginLeft: "auto",
         marginRight: "auto",
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 8,
-        backgroundColor: "#94bad1"
-
     }
 })
 
