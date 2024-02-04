@@ -11,10 +11,11 @@ const HomeItem = (props: ItemBody) => {
             ...props 
         });
     }
+    const backgroundColor = props.isOwner ? "#9daec9" : "#96e3d2";
 
     return (
         <Pressable onPress={openItemScreen}>
-            <View style={styles.container}>
+            <View style={[styles.container, { backgroundColor } ]}>
                 <Text style={styles.itemName}>{props.name}</Text>
                 <Text>{props.description}</Text>
 
@@ -26,7 +27,6 @@ const HomeItem = (props: ItemBody) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#9daec9",
         margin: 8,
         padding: 16,
         borderRadius: 4

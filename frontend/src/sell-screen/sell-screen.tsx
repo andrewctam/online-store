@@ -44,7 +44,7 @@ const SellScreen = () => {
                 price: priceNum
             })
         })
-            .then(() => navigation.navigate("HomeScreen"))
+            .then(() => navigation.goBack())
             .catch(err => console.log(err));
     }
 
@@ -53,7 +53,7 @@ const SellScreen = () => {
             <Section>
                 <Text style={styles.title}>Add New Item</Text>
                 <Button
-                    onPress={() => navigation.navigate("HomeScreen")}
+                    onPress={() => navigation.goBack()}
                     text="Back"
                 />
             </Section>

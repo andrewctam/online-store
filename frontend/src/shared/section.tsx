@@ -17,6 +17,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#aeb5b5",
         padding: 10
     },
-
 })
+
 export default Section;

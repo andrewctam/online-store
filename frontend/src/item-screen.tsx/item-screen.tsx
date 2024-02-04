@@ -61,7 +61,9 @@ const ItemScreen = () => {
                 <Text style={[styles.description, styles.center]}>
                     {description}
                 </Text>
+            </Section>
 
+            <View style={{ marginTop: 25 }}>
                 {itemBody.isOwner ? (
                     <>
                         <Text style={[styles.center, styles.seller]}>
@@ -86,13 +88,12 @@ const ItemScreen = () => {
                         color="#42f59e"
                     />
                 )}
+                <Button
+                    onPress={() => navigation.goBack()}
+                    text="Back"
+                />
+            </View>
 
-            </Section>
-
-            <Button
-                onPress={() => navigation.goBack()}
-                text="Back"
-            />
         </Layout>
     )
 }

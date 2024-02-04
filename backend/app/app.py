@@ -35,7 +35,16 @@ def checkUserId():
 @app.route("/api/items", methods = ["GET"])
 def items():
     userId = request.args.get('userId', default="")
-    existing = list(mongo.db.items.find({}))
+    onlyMine = request.args.get('onlyMine', default="false")
+
+    if onlyMine == "true":
+        try:
+            existing = list(mongo.db.items.find({"seller": ObjectId(userId)}))
+        except:
+            return json_util.dumps("Invalid userId"), 400
+    else:
+        existing = list(mongo.db.items.find({}))
+
     existing.reverse()
     existing = map(lambda x: {
         "id": str(x['_id']),

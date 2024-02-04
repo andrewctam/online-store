@@ -8,6 +8,7 @@ export interface ItemBody {
 
 export type RootStackParamList = {
     HomeScreen: undefined,
+    YourItemsScreen: undefined,
     CartScreen: undefined,
     CheckoutScreen: undefined,
     SellScreen: undefined,

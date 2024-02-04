@@ -10,7 +10,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { UserContext } from "../../context";
 import Section from "../shared/section";
 
-const HomeScreen = () => {
+const YourItemsScreen = () => {
     const [items, setItems] = useState<ItemBody[]>([]);
     const userId = useContext(UserContext);
 
@@ -19,7 +19,7 @@ const HomeScreen = () => {
 
     useEffect(() => {
         const getItems = async () => {
-            const response = await fetch(`${API_URL}/api/items?userId=${userId}`)
+            const response = await fetch(`${API_URL}/api/items?userId=${userId}&onlyMine=true`)
                 .then(res => res.json())
                 .catch(err => console.log(err));
 
@@ -35,19 +35,16 @@ const HomeScreen = () => {
         <Layout>
             <Section>
                 <Text style={styles.title}>
-                    Home
+                    Your Items
                 </Text>
                 <Button
                     onPress={() => navigation.navigate("SellScreen")}
                     text="Add New Item"
                 />
+
                 <Button
-                    onPress={() => navigation.navigate("YourItemsScreen")}
-                    text="Your Items"
-                />
-                <Button
-                    onPress={() => navigation.navigate("CartScreen")}
-                    text="View Cart"
+                    onPress={() => navigation.navigate("HomeScreen")}
+                    text="Back"
                 />
             </Section>
 
@@ -74,4 +71,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default HomeScreen;
+export default YourItemsScreen;

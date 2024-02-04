@@ -11,6 +11,7 @@ import CheckoutScreen from './src/cart-screen/checkout-screen';
 import { CartContext, UserContext } from './context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL } from './constants';
+import YourItemsScreen from './src/home-screen/your-items-screen';
 
 
 export default function App() {
@@ -51,6 +52,10 @@ export default function App() {
             <Stack.Screen
               name="HomeScreen"
               component={HomeScreen}
+            />
+            <Stack.Screen
+              name="YourItemsScreen"
+              component={YourItemsScreen}
             />
             <Stack.Screen
               name="CartScreen"
