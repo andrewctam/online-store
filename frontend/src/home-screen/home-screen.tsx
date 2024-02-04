@@ -35,7 +35,7 @@ const HomeScreen = () => {
 
             <Button
                 onPress={() => navigation.navigate("SellScreen")}
-                text="List New Item"
+                text="Add New Item"
             />
 
             <Button

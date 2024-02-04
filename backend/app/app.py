@@ -5,7 +5,7 @@ from flask_pymongo import PyMongo
 import os
 from dotenv import load_dotenv
 import certifi
-from bson import json_util
+from bson import json_util, ObjectId
 
 if os.environ.get("ENVIRONMENT") != "production":
     load_dotenv()
@@ -42,6 +42,25 @@ def createItem():
         "price": request.json["price"],
         "seller": request.json["seller"],
         "description": request.json["description"],
+    })
+
+    return json_util.dumps("OK")
+
+@app.route("/api/checkout", methods = ["POST"])
+def checkout():
+    for item in request.json["items"]:
+        try:
+            ObjectId(item)
+        except:
+            return json_util.dumps("Invalid")
+    
+    item_ids = list(map(lambda x: ObjectId(x), request.json["items"]))
+    
+    items = mongo.db.items
+    items.delete_many({
+        "_id" : { 
+            "$in": item_ids
+        } 
     })
 
     return json_util.dumps("OK")

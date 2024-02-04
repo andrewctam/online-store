@@ -6,11 +6,13 @@ import CartScreen from './src/cart-screen/cart-screen';
 import SellScreen from './src/sell-screen/sell-screen';
 import ItemScreen from './src/item-screen.tsx/item-screen';
 import { ItemBody } from './types';
-import { Context, createContext, useState } from 'react';
+import { createContext, useState } from 'react';
+import CheckoutScreen from './src/cart-screen/checkout-screen';
 
 export type RootStackParamList = {
   HomeScreen: undefined,
   CartScreen: undefined,
+  CheckoutScreen: undefined,
   SellScreen: undefined,
   ItemScreen: ItemBody | undefined;
 };
@@ -39,6 +41,10 @@ export default function App() {
           <Stack.Screen
             name="CartScreen"
             component={CartScreen}
+          />
+          <Stack.Screen
+            name="CheckoutScreen"
+            component={CheckoutScreen}
           />
           <Stack.Screen
             name="SellScreen"

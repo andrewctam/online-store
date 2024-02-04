@@ -38,7 +38,7 @@ const CartScreen = () => {
             {cart.length > 0 && (
                 <Button
                     text="Checkout"
-                    onPress={() => {}}
+                    onPress={() => navigation.navigate("CheckoutScreen")}
                     color="#c49fed"
                 />
             )}
