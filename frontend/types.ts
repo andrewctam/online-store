@@ -11,7 +11,7 @@ export type RootStackParamList = {
     YourItemsScreen: undefined,
     CartScreen: undefined,
     CheckoutScreen: undefined,
-    SellScreen: undefined,
+    AddScreen: undefined,
     ItemScreen: ItemBody | undefined;
   };
   

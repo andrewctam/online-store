@@ -9,7 +9,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { UserContext } from "../../context";
 import Section from "../shared/section";
 
-const SellScreen = () => {
+const AddScreen = () => {
     const [price, setPrice] = useState("");
     const [itemName, setItemName] = useState("");
     const [itemDescription, setItemDescription] = useState("");
@@ -38,7 +38,7 @@ const SellScreen = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                seller: userId,
+                creator: userId,
                 name: itemName,
                 description: itemDescription,
                 price: priceNum
@@ -98,4 +98,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default SellScreen;
+export default AddScreen;

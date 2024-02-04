@@ -38,7 +38,7 @@ const YourItemsScreen = () => {
                     Your Items
                 </Text>
                 <Button
-                    onPress={() => navigation.navigate("SellScreen")}
+                    onPress={() => navigation.navigate("AddScreen")}
                     text="Add New Item"
                 />
 

@@ -39,7 +39,7 @@ def items():
 
     if onlyMine == "true":
         try:
-            existing = list(mongo.db.items.find({"seller": ObjectId(userId)}))
+            existing = list(mongo.db.items.find({"creator": ObjectId(userId)}))
         except:
             return json_util.dumps("Invalid userId"), 400
     else:
@@ -50,7 +50,7 @@ def items():
         "id": str(x['_id']),
         "name": x['name'],
         "price": x['price'],
-        "isOwner": str(x["seller"]) == userId,
+        "isOwner": str(x["creator"]) == userId,
         "description": x['description'],
     }, existing)    
 
@@ -59,14 +59,14 @@ def items():
 @app.route("/api/createItem", methods = ["POST"])
 def createItem():
     try:
-        ObjectId(request.json["seller"])
+        ObjectId(request.json["creator"])
     except:
         return json_util.dumps("Invalid userId"), 400
     
     mongo.db.items.insert_one({
         "name": request.json["name"],
         "price": request.json["price"],
-        "seller": ObjectId(request.json["seller"]),
+        "creator": ObjectId(request.json["creator"]),
         "description": request.json["description"],
     })
 
@@ -82,7 +82,7 @@ def deleteItem():
         return json_util.dumps("Invalid request"), 400
 
     item = items.find_one({"_id": ObjectId(request.json["itemId"])})
-    if (not item or str(item["seller"]) != request.json["userId"]):
+    if (not item or str(item["creator"]) != request.json["userId"]):
         return json_util.dumps("Invalid request"), 400
     
     items.delete_one({"_id": ObjectId(request.json["itemId"])})

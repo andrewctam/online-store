@@ -66,7 +66,7 @@ const ItemScreen = () => {
             <View style={{ marginTop: 25 }}>
                 {itemBody.isOwner ? (
                     <>
-                        <Text style={[styles.center, styles.seller]}>
+                        <Text style={[styles.center, styles.creator]}>
                             This is your item
                         </Text>
                         <Button
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     price: {
         fontSize: 20
     },
-    seller: {
+    creator: {
         fontSize: 16
     },
     description: {

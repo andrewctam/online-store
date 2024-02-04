@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './src/home-screen/home-screen';
 import CartScreen from './src/cart-screen/cart-screen';
-import SellScreen from './src/sell-screen/sell-screen';
+import AddScreen from './src/add-screen/add-screen';
 import ItemScreen from './src/item-screen.tsx/item-screen';
 import { ItemBody, RootStackParamList } from './types';
 import { useEffect, useState } from 'react';
@@ -66,8 +66,8 @@ export default function App() {
               component={CheckoutScreen}
             />
             <Stack.Screen
-              name="SellScreen"
-              component={SellScreen}
+              name="AddScreen"
+              component={AddScreen}
             />
             <Stack.Screen
               name="ItemScreen"
