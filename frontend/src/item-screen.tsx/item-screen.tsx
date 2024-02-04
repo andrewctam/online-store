@@ -19,10 +19,10 @@ const ItemScreen = () => {
         return null;
     }
 
-    const { name, price, seller, description, id } = route.params;
+    const { name, price, isOwner, description, id } = route.params;
 
 
-    const itemBody = { name, price, seller, description, id };
+    const itemBody = { name, price, isOwner, description, id };
 
     const addToCart = () => {
         setCart([...cart, itemBody])
@@ -39,6 +39,7 @@ const ItemScreen = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
+                userId,
                 itemId: id
             })
         })
@@ -59,7 +60,7 @@ const ItemScreen = () => {
                 {description}
             </Text>
 
-            {itemBody.seller === userId ? (
+            {itemBody.isOwner ? (
                 <>
                     <Text style={[styles.center, styles.seller]}>
                         This is your item

@@ -34,17 +34,16 @@ def checkUserId():
 
 @app.route("/api/items", methods = ["GET"])
 def items():
+    userId = request.args.get('userId', default="")
     existing = list(mongo.db.items.find({}))
     existing.reverse()
-    
     existing = map(lambda x: {
         "id": str(x['_id']),
         "name": x['name'],
         "price": x['price'],
-        "seller": str(x['seller']),
+        "isOwner": str(x["seller"]) == userId,
         "description": x['description'],
-
-    }, existing)
+    }, existing)    
 
     return json_util.dumps(existing)
 
@@ -53,7 +52,7 @@ def createItem():
     try:
         ObjectId(request.json["seller"])
     except:
-        return json_util.dumps("Invalid userId")
+        return json_util.dumps("Invalid userId"), 400
     
     mongo.db.items.insert_one({
         "name": request.json["name"],
@@ -65,13 +64,19 @@ def createItem():
     return json_util.dumps("OK")
 
 @app.route("/api/deleteItem", methods = ["DELETE"])
-def deleteItem():
+def deleteItem():  
+    items = mongo.db.items  
     try:
         ObjectId(request.json["itemId"])
+        ObjectId(request.json["userId"])
     except:
-        return json_util.dumps("Invalid userId")
+        return json_util.dumps("Invalid request"), 400
+
+    item = items.find_one({"_id": ObjectId(request.json["itemId"])})
+    if (not item or str(item["seller"]) != request.json["userId"]):
+        return json_util.dumps("Invalid request"), 400
     
-    mongo.db.items.delete_one({"_id": ObjectId(request.json["itemId"])})
+    items.delete_one({"_id": ObjectId(request.json["itemId"])})
     return json_util.dumps("OK")
 
 @app.route("/api/checkout", methods = ["POST"])
@@ -80,7 +85,7 @@ def checkout():
         try:
             ObjectId(item)
         except:
-            return json_util.dumps("Invalid")
+            return json_util.dumps("Invalid"), 400
     
     item_ids = list(map(lambda x: ObjectId(x), request.json["items"]))
     

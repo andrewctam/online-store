@@ -1,22 +1,24 @@
 import { ScrollView, StyleSheet, Text } from "react-native";
 import { ParamListBase, useIsFocused, useNavigation } from '@react-navigation/native';
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { API_URL } from "../../constants";
 import Layout from "../shared/layout";
 import HomeItem from "./home-item";
 import { ItemBody } from "../../types";
 import Button from "../shared/button";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { UserContext } from "../../context";
 
 const HomeScreen = () => {
     const [items, setItems] = useState<ItemBody[]>([]);
-    
+    const userId = useContext(UserContext);
+
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     const isFocused = useIsFocused();
 
     useEffect(() => {
         const getItems = async () => {
-            const response = await fetch(`${API_URL}/api/items`)
+            const response = await fetch(`${API_URL}/api/items?userId=${userId}`)
                 .then(res => res.json())
                 .catch(err => console.log(err));
 

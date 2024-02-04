@@ -1,7 +1,7 @@
 export interface ItemBody {
     name: string
     price: number
-    seller: string
+    isOwner: boolean
     description: string
     id: string
 }
