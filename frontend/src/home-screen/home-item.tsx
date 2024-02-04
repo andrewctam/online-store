@@ -16,7 +16,7 @@ const HomeItem = (props: ItemBody) => {
         <Pressable onPress={openItemScreen}>
             <View style={styles.container}>
                 <Text style={styles.itemName}>{props.name}</Text>
-                <Text>${props.description}</Text>
+                <Text>{props.description}</Text>
 
                 <Text style={styles.price}>{"$" + props.price}</Text>
             </View>

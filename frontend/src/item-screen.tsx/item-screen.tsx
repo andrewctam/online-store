@@ -1,4 +1,4 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Layout from "../shared/layout";
 import { ParamListBase, RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import Button from "../shared/button";
@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { CartContext, UserContext } from "../../context";
 import { RootStackParamList } from "../../types";
 import { API_URL } from "../../constants";
+import Section from "../shared/section";
 
 const ItemScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
@@ -49,42 +50,44 @@ const ItemScreen = () => {
 
     return (
         <Layout>
-            <Text style={[styles.name, styles.center]}>
-                {name}
-            </Text>
-            <Text style={[styles.price, styles.center]}>
-                {"$" + price}
-            </Text>
+            <Section>
+                <Text style={[styles.name, styles.center]}>
+                    {name}
+                </Text>
+                <Text style={[styles.price, styles.center]}>
+                    {"$" + price}
+                </Text>
 
-            <Text style={[styles.description, styles.center]}>
-                {description}
-            </Text>
+                <Text style={[styles.description, styles.center]}>
+                    {description}
+                </Text>
 
-            {itemBody.isOwner ? (
-                <>
-                    <Text style={[styles.center, styles.seller]}>
-                        This is your item
-                    </Text>
+                {itemBody.isOwner ? (
+                    <>
+                        <Text style={[styles.center, styles.seller]}>
+                            This is your item
+                        </Text>
+                        <Button
+                            onPress={deleteItem}
+                            text="Delete Item"
+                            color="#d69987"
+                        />
+                    </>
+                ) : cart.find((item) => item.id === id) ? (
                     <Button
-                        onPress={deleteItem}
-                        text="Delete Item"
+                        onPress={removeFromCart}
+                        text="Remove From Cart"
                         color="#e36e66"
                     />
-                </>
-            ) : cart.find((item) => item.id === id) ? (
-                <Button
-                    onPress={removeFromCart}
-                    text="Remove From Cart"
-                    color="#e36e66"
-                />
-            ) : (
-                <Button
-                    onPress={addToCart}
-                    text="Add To Cart"
-                    color="#42f59e"
-                />
-            )}
+                ) : (
+                    <Button
+                        onPress={addToCart}
+                        text="Add To Cart"
+                        color="#42f59e"
+                    />
+                )}
 
+            </Section>
 
             <Button
                 onPress={() => navigation.goBack()}
@@ -110,7 +113,7 @@ const styles = StyleSheet.create({
     },
     center: {
         textAlign: "center",
-    }
+    },
 })
 
 export default ItemScreen;

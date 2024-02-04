@@ -1,4 +1,4 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { API_URL } from "../../constants";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import Layout from "../shared/layout";
@@ -7,6 +7,7 @@ import FieldInput from "./field-input";
 import Button from "../shared/button";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { UserContext } from "../../context";
+import Section from "../shared/section";
 
 const SellScreen = () => {
     const [price, setPrice] = useState("");
@@ -49,8 +50,13 @@ const SellScreen = () => {
 
     return (
         <Layout>
-            <Text style={styles.title}>Add New Item</Text>
-
+            <Section>
+                <Text style={styles.title}>Add New Item</Text>
+                <Button
+                    onPress={() => navigation.navigate("HomeScreen")}
+                    text="Back"
+                />
+            </Section>
             <FieldInput
                 label="Item Name"
                 value={itemName}
@@ -76,12 +82,6 @@ const SellScreen = () => {
                 onPress={createItem}
                 color="#a9eba2"
                 text="Create"
-            />
-
-            <Button
-                onPress={() => navigation.navigate("HomeScreen")}
-                color="#d69987"
-                text="Cancel"
             />
         </Layout>
     )

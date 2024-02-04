@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { ParamListBase, useIsFocused, useNavigation } from '@react-navigation/native';
 import { useContext, useEffect, useState } from "react";
 import { API_URL } from "../../constants";
@@ -8,6 +8,7 @@ import { ItemBody } from "../../types";
 import Button from "../shared/button";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { UserContext } from "../../context";
+import Section from "../shared/section";
 
 const HomeScreen = () => {
     const [items, setItems] = useState<ItemBody[]>([]);
@@ -24,25 +25,28 @@ const HomeScreen = () => {
 
             setItems(response)
         }
+        if (isFocused) {
+            getItems();
+        }
 
-        getItems();
     }, [isFocused])
 
     return (
         <Layout>
-            <Text style={styles.title}>
-                Home
-            </Text>
+            <Section>
+                <Text style={styles.title}>
+                    Home
+                </Text>
+                <Button
+                    onPress={() => navigation.navigate("SellScreen")}
+                    text="Add New Item"
+                />
 
-            <Button
-                onPress={() => navigation.navigate("SellScreen")}
-                text="Add New Item"
-            />
-
-            <Button
-                onPress={() => navigation.navigate("CartScreen")}
-                text="View Cart"
-            />
+                <Button
+                    onPress={() => navigation.navigate("CartScreen")}
+                    text="View Cart"
+                />
+            </Section>
 
             <ScrollView>
                 {items?.map((item, i) => (

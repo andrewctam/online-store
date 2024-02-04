@@ -1,11 +1,12 @@
 import { ParamListBase, useNavigation } from "@react-navigation/native";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Layout from "../shared/layout";
 import Button from "../shared/button";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useContext } from "react";
 import CartItem from "./cart-item";
 import { CartContext } from "../../context";
+import Section from "../shared/section";
 
 const CartScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
@@ -17,12 +18,13 @@ const CartScreen = () => {
 
     return (
         <Layout>
-            <Text style={styles.title}>Cart</Text>
-
-            <Button
-                text="Back"
-                onPress={() => navigation.navigate("HomeScreen")}
-            />
+            <Section>
+                <Text style={styles.title}>Cart</Text>
+                <Button
+                    text="Back"
+                    onPress={() => navigation.navigate("HomeScreen")}
+                />
+            </Section>
 
             {cart.map((item, i) => (
                 <CartItem

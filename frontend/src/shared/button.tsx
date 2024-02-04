@@ -24,12 +24,14 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         marginLeft: "auto",
         marginRight: "auto",
-        marginTop: 20,
+        margin: 10,
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 8,
-        backgroundColor: "#93d2db"
+        backgroundColor: "#93d2db",
+        borderColor: "black",
+        borderWidth: 1
     }
 })
 
