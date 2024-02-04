@@ -5,3 +5,12 @@ export interface ItemBody {
     description: string
     id: string
 }
+
+export type RootStackParamList = {
+    HomeScreen: undefined,
+    CartScreen: undefined,
+    CheckoutScreen: undefined,
+    SellScreen: undefined,
+    ItemScreen: ItemBody | undefined;
+  };
+  

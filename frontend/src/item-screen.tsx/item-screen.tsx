@@ -3,14 +3,17 @@ import Layout from "../shared/layout";
 import { ParamListBase, RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import Button from "../shared/button";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { CartContext, RootStackParamList } from "../../App";
 import { useContext } from "react";
+import { CartContext, UserContext } from "../../context";
+import { RootStackParamList } from "../../types";
+import { API_URL } from "../../constants";
 
 const ItemScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     const route = useRoute<RouteProp<RootStackParamList, 'ItemScreen'>>();
 
     const { cart, setCart } = useContext(CartContext);
+    const userId = useContext(UserContext);
 
     if (!route.params) {
         return null;
@@ -29,6 +32,20 @@ const ItemScreen = () => {
         setCart(cart.filter((item) => item.id !== itemBody.id));
     }
 
+    const deleteItem = async () => {
+        await fetch(`${API_URL}/api/deleteItem`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                itemId: id
+            })
+        })
+            .then(() => navigation.goBack())
+            .catch(err => console.log(err));
+    }
+
     return (
         <Layout>
             <Text style={[styles.name, styles.center]}>
@@ -37,14 +54,23 @@ const ItemScreen = () => {
             <Text style={[styles.price, styles.center]}>
                 {"$" + price}
             </Text>
-            <Text style={[styles.seller, styles.center]}>
-                {`Sold by ${seller}`}
-            </Text>
+
             <Text style={[styles.description, styles.center]}>
                 {description}
             </Text>
 
-            {cart.find((item) => item.id === id) ? (
+            {itemBody.seller === userId ? (
+                <>
+                    <Text style={[styles.center, styles.seller]}>
+                        This is your item
+                    </Text>
+                    <Button
+                        onPress={deleteItem}
+                        text="Delete Item"
+                        color="#e36e66"
+                    />
+                </>
+            ) : cart.find((item) => item.id === id) ? (
                 <Button
                     onPress={removeFromCart}
                     text="Remove From Cart"
@@ -57,6 +83,7 @@ const ItemScreen = () => {
                     color="#42f59e"
                 />
             )}
+
 
             <Button
                 onPress={() => navigation.goBack()}

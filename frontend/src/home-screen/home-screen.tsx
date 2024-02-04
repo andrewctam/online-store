@@ -1,4 +1,4 @@
-import { Pressable, ScrollView, StyleSheet, Text } from "react-native";
+import { ScrollView, StyleSheet, Text } from "react-native";
 import { ParamListBase, useIsFocused, useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from "react";
 import { API_URL } from "../../constants";
@@ -20,7 +20,6 @@ const HomeScreen = () => {
                 .then(res => res.json())
                 .catch(err => console.log(err));
 
-            console.log(response)
             setItems(response)
         }
 

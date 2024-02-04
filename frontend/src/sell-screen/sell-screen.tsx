@@ -1,23 +1,25 @@
-import { Pressable, StyleSheet, Text, TextInput } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { API_URL } from "../../constants";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import Layout from "../shared/layout";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import FieldInput from "./field-input";
 import Button from "../shared/button";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { UserContext } from "../../context";
 
 const SellScreen = () => {
-    const [sellerName, setSellerName] = useState("");
     const [price, setPrice] = useState("");
     const [itemName, setItemName] = useState("");
     const [itemDescription, setItemDescription] = useState("");
     const [error, setError] = useState("");
 
+    const userId = useContext(UserContext);
+
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
     const createItem = async () => {
-        if (itemName.length === 0 || sellerName.length === 0 || price.length === 0 || itemDescription.length === 0) {
+        if (itemName.length === 0 || price.length === 0 || itemDescription.length === 0) {
             setError("Please fill in all fields");
             return;
         }
@@ -29,18 +31,19 @@ const SellScreen = () => {
             return;
         }
 
-        await fetch(`${API_URL}/api/create`, {
+        await fetch(`${API_URL}/api/createItem`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                seller: sellerName,
+                seller: userId,
                 name: itemName,
                 description: itemDescription,
                 price: priceNum
             })
-        }).then(() => navigation.navigate("HomeScreen"))
+        })
+            .then(() => navigation.navigate("HomeScreen"))
             .catch(err => console.log(err));
     }
 
@@ -49,20 +52,15 @@ const SellScreen = () => {
             <Text style={styles.title}>Add New Item</Text>
 
             <FieldInput
-                label="Your Name"
-                value={sellerName}
-                setValue={setSellerName}
+                label="Item Name"
+                value={itemName}
+                setValue={setItemName}
             />
             <FieldInput
                 label="Price"
                 value={price}
                 setValue={setPrice}
                 numberInput
-            />
-            <FieldInput
-                label="Item Name"
-                value={itemName}
-                setValue={setItemName}
             />
             <FieldInput
                 label="Description"

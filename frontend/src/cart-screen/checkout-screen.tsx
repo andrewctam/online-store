@@ -1,15 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
 import Layout from "../shared/layout";
-import { useContext, useEffect, useState } from "react";
-import { CartContext } from "../../App";
+import { useContext, useEffect } from "react";
 import Button from "../shared/button";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { API_URL } from "../../constants";
+import { CartContext } from "../../context";
 
 const CheckoutScreen = () => {
-    const [error, setError] = useState("")
-
     const { cart, setCart } = useContext(CartContext);
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
@@ -23,8 +21,9 @@ const CheckoutScreen = () => {
                 body: JSON.stringify({
                     items: cart.map(item => item.id)
                 })
-            }).then(() => setCart([]))
-            .catch(err => console.log(err));
+            })
+                .then(() => setCart([]))
+                .catch(err => console.log(err));
         }
 
         checkout();

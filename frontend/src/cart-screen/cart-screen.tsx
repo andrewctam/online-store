@@ -3,9 +3,9 @@ import { StyleSheet, Text } from "react-native";
 import Layout from "../shared/layout";
 import Button from "../shared/button";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { CartContext } from "../../App";
 import { useContext } from "react";
 import CartItem from "./cart-item";
+import { CartContext } from "../../context";
 
 const CartScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();

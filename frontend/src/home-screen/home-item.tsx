@@ -16,10 +16,9 @@ const HomeItem = (props: ItemBody) => {
         <Pressable onPress={openItemScreen}>
             <View style={styles.container}>
                 <Text style={styles.itemName}>{props.name}</Text>
-                <Text>{`Description:\n${props.description}`}</Text>
+                <Text>${props.description}</Text>
 
                 <Text style={styles.price}>{"$" + props.price}</Text>
-                <Text style={styles.seller}>{`Seller: ${props.seller}`}</Text>
             </View>
         </Pressable >
     )
@@ -38,16 +37,11 @@ const styles = StyleSheet.create({
     },
     price: {
         position: "absolute",
-        top: 4,
-        right: 4,
-        fontSize: 16
+        top: 16,
+        right: 16,
+        fontSize: 20
     },
-    seller: {
-        position: "absolute",
-        bottom: 4,
-        right: 4,
-        fontSize: 16
-    }
+
 })
 
 export default HomeItem;
